@@ -33,11 +33,24 @@ const handler = nextAuth({
                 }
             }
         })
-    ]
+    ],
+    secret: process.env.NEXTAUTH_SECRET,
+    callbacks: {
+        jwt: async ({ user, token }: any) => {
+            console.log('user', user);
+            console.log('token', token);
+            token.userId = token.sub
+            return token;
+        },
+        session: ({ session, token, user }: any) => {
+            console.log('session', session)
+            if (session.user) {
+                session.user.id = token.userId
+            }
+            return session;
+        }
+    }
 })
-
-
-
 
 
 export const GET = handler;

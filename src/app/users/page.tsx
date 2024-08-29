@@ -5,6 +5,6 @@ export default async function(){
     const session = await getServerSession();
     return <div>
         <Appbar />
-        {JSON.stringify(session)}
+       <div>Server side component {JSON.stringify(session)}</div> 
     </div>
 }
